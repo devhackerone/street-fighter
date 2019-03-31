@@ -2,7 +2,7 @@ class FetchService {
 	API_URL = 'https://api.github.com/';
 
 	callApi(endpoind, method) {
-		const url = FetchService.API_URL + endpoind;
+		const url = this.API_URL + endpoind;
 		const options = {
 			method
 		};
