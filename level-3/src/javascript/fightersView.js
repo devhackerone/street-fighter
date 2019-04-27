@@ -1,47 +1,31 @@
-import { createElement } from './uiHelper';
+import View from "./view";
+import FighterView from "./fighterView";
 
-class FightersView {
-	constructor(fighters, containerID = 'fighters') {
-		this.$fighters = document.getElementById(containerID);
-		this.fighters = fighters;
-	}
+class FightersView extends View {
+  constructor(fighters) {
+    super();
+    this.createFighters(fighters);
+    this.handleClick = this.handleFighterClick.bind(this);
+  }
 
-	$fighters;
-	fighters;
+  fightersDetailsMap;
 
-	renderFighters() {
-		this.fighters.forEach(fighter => this.$fighters.appendChild(this.createFighterNode(fighter)));
-	}
+  createFighters(fighters) {
+    const fighterElements = fighters.map(fighter => {
+      const fighterView = new FighterView(fighter, this.handleClick);
+      return fighterView.element();
+    });
 
-	createFighterNode(fighter) {
-		const $wrapper = createElement({ tagName: 'div', className: 'fighter' });
-	
-		$wrapper.appendChild(this.createImage(fighter.source));
-		$wrapper.appendChild(this.createName(fighter.name));
-		$wrapper.addEventListener('click', (event) => this.handleFighterClick(event, fighter), false)
-	
-		return $wrapper;
-	}
+    this.element = this.createElement({ tagName: "div", className: "fighters" });
+    this.element.append(...fighterElements);
+  }
 
-	createName(name) {
-		const $name = createElement({ tagName: 'span', className: 'name' });
-		$name.innerText = name;
-	
-		return $name;
-	}
-
-	createImage(src) {
-		const attributes = [{ name: 'src', value: src }];
-		const $img = createElement({ tagName: 'img', className: 'fighter-image', attributes });
-		
-		return $img;
-	}
-
-	handleFighterClick(event, fighter) {
-		// get from map or load info and add to fightersMap
-		// show modal with fighter info
-		// allow to edit info about fighter in this modal
-	}	
+  handleFighterClick(event, fighter) {
+    this.fightersDetailsMap.set(fighter._id, fighter);
+    // get from map or load info and add to fightersMap
+    // show modal with fighter info
+    // allow to edit health and power in this modal
+  }
 }
 
 export default FightersView;

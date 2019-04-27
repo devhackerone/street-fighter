@@ -15,7 +15,7 @@ body {
     width: 100%;
 }
 
-#fighters {
+.fighters {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,21 +55,6 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    background: rgba(255, 255, 255, 0.7)
-}
-
-#fight-btn {
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-end;
-    margin: 40px;
-}
-
-#fight-btn > img {
-    height: 70px;
-    cursor: pointer;
-}
-
-#fight-btn > img:hover {
-    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.7);
+    visibility: hidden;
 }

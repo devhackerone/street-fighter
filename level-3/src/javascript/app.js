@@ -1,26 +1,27 @@
-import FightersView from './fightersView';
-import { fighterService } from './services/fightersService';
+import FightersView from "./fightersView";
+import { fighterService } from "./services/fightersService";
 
 class App {
-	constructor() {
-		this.startApp();
-	}
+  constructor() {
+    this.startApp();
+  }
 
-	static $root = document.getElementById('root');
-	static $loading = document.getElementById('loading-overlay');
+  static rootElement = document.getElementById("root");
+  static loadingElement = document.getElementById("loading-overlay");
 
-	async startApp() {
-		try {
-			const fighters = await fighterService.getFighters();
-			const fightersView = new FightersView(fighters);
-			fightersView.renderFighters();
-		} catch(error) {
-			console.warn(error);
-			App.$root.innerText = 'Failed to load data';
-		} finally {
-			App.$loading.style.display = 'none';
-		}
-	}
+  async startApp() {
+    try {
+      const fighters = await fighterService.getFighters();
+      const fightersView = new FightersView(fighters);
+      const fightersElement = fightersView.element();
+      App.rootElement.appendChild(fightersElement);
+    } catch (error) {
+      console.warn(error);
+      App.rootElement.innerText = "Failed to load data";
+    } finally {
+      App.loadingElement.style.display = "none";
+    }
+  }
 }
 
 export default App;

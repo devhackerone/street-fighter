@@ -1,21 +1,20 @@
-import FetchService from './fetchService';
-class FighterService extends FetchService{
-	async getFighters() {
-		try {
-			const endpoint = 'repos/sahanr/street-fighter/contents/fighters.json';
-			const apiResult = await this.callApi(endpoint, 'GET');
-			
-			return JSON.parse(atob(apiResult.content));
-		} catch (error) {
-			throw error;
-		}
-	}
+import { callApi } from "./apiHelper";
+class FighterService {
+  async getFighters() {
+    try {
+      const endpoint = "repos/sahanr/street-fighter/contents/fighters.json";
+      const apiResult = await callApi(endpoint, "GET");
 
-	async getFighterDetails(_id) {
+      return JSON.parse(atob(apiResult.content));
+    } catch (error) {
+      throw error;
+    }
+  }
 
-	}
+  async getFighterDetails(_id) {
+    // implement this method
+    // endpoint - `repos/sahanr/street-fighter/contents/fighter-${_id}.json`;
+  }
 }
 
-const fighterService = new FighterService();
-
-export { fighterService };
+export const fighterService = new FighterService();
